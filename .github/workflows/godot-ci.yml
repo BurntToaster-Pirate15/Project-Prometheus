@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        platform: [Linux, Windows, Web]
+        platform: [Linux, Windows]
     steps:
       - uses: actions/checkout@v2
         with:
@@ -25,27 +25,3 @@ jobs:
         with:
           name: Client-${{ matrix.platform }}
           path: ${{ github.workspace }}/${{ steps.build.outputs.build }}
-  webgl-export-to-pages:
-    runs-on: ubuntu-latest
-    needs: Godot-build
-    permissions:
-      pages: write
-      id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Download a Build Artifact
-        uses: actions/download-artifact@v4.1.8
-        with:
-          name: Client-Web
-          path: ${{ github.workspace }}/${{ steps.build.outputs.build }}
-      - name: Upload GitHub Pages artifact
-        uses: actions/upload-pages-artifact@v3.0.1
-        with:
-          path: ${{ github.workspace }}/${{ steps.build.outputs.build }}
-      - name: Deploy GitHub Pages site
-        uses: actions/deploy-pages@v4.0.5
-        with:
-          artifact_name: Client-Web
-          
