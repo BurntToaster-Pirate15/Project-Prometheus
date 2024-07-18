@@ -6,7 +6,7 @@ extends CharacterBody2D
 @export var DASHING_TIME: float = 0.5
 
 var is_dashing: bool = false
-
+var dash_direction: Vector2
 @onready var timer: Timer = $DashTimer
 
 
@@ -18,10 +18,12 @@ func _physics_process(delta):
 	
 	if Input.is_action_just_pressed("Dash") && !is_dashing:
 		is_dashing = true
+		dash_direction = direction
 		timer.start(DASHING_TIME)
 	
 	if is_dashing:
 		speed = DASH_SPEED
+		direction = dash_direction
 
 	velocity = direction * speed
 
