@@ -1,8 +1,9 @@
 # Introduction
 ## Game Summary
-Prometheus is a [description] [genre] game about [basic lore].
+Prometheus is a top-down 2D metroidvania game about an alchemist attempting to restore the sun.
 
 ## Inspirations
+* Turnip Boy Commits Tax Evasion (and other Zelda-like games)
 
 ## Player Experience
 
@@ -11,7 +12,9 @@ This runs on Windows, Linux, and in Web.
 
 ## Development Software
 Programming: Godot Engine
+
 Art: 
+
 Music: 
 
 ## Genre
@@ -23,13 +26,18 @@ with Action and Puzzle elements
 
 # Concept
 ## Gameplay Overview
-Run around the overworld, encounter roadblocks, explore, find solutions, destroy roadblock
+Navigate the overworld, armed with the Potion Launcher. Potions interact with the environment in different ways, and can clear obstacles.
 
 ## Theme Interpretations
-Shadow: 
-Alchemy: 
+Shadow: SHADOW has descended upon the world. Player attempts to restore the sun to banish the SHADOW.
+
+Alchemy: Player is an ALCHEMIST, who collects reagents and brews new potions that interact with the environment to address challenges. 
 
 ## Primary Mechanics
+Potion Launcher: shoot potions at a distance to interact with the world.
+  * Ice potion: freezes water, makes slippery ice
+  * Gust potion: pushes objects away from the center
+  * ??: ?????
 
 ## Secondary Mechanics
 
