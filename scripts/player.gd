@@ -5,6 +5,7 @@ const SPEED: float = 100.0
 const DASHSPEED: float = 900.0
 var is_dashing: bool = false
 
+@onready var timer: Timer = $DashTimer
 
 
 func _physics_process(delta):
@@ -15,7 +16,7 @@ func _physics_process(delta):
 	
 	if Input.is_action_just_pressed("Dash") && !is_dashing:
 		is_dashing = true
-		$DashTimer.start()
+		timer.start()
 		speed = DASHSPEED
 
 	velocity = direction * speed
