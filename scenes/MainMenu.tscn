@@ -1,0 +1,46 @@
+[gd_scene load_steps=2 format=3 uid="uid://brigtv4owqhm5"]
+
+[ext_resource type="Texture2D" uid="uid://djk30lspbnl40" path="res://assets/pTitle.png" id="1_ohp0r"]
+
+[node name="MainMenu" type="MarginContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 120
+theme_override_constants/margin_top = 80
+theme_override_constants/margin_right = 120
+theme_override_constants/margin_bottom = 80
+
+[node name="PTitle" type="Sprite2D" parent="."]
+position = Vector2(298, 152)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("1_ohp0r")
+
+[node name="HSplitContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HSplitContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="ButtonPlayNew" type="Button" parent="HSplitContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Play New Game"
+
+[node name="ButtonContinue" type="Button" parent="HSplitContainer/VBoxContainer"]
+layout_mode = 2
+disabled = true
+text = "Continue"
+
+[node name="ButtonCredits" type="Button" parent="HSplitContainer/VBoxContainer"]
+layout_mode = 2
+text = "Credits"
+
+[node name="ButtonExit" type="Button" parent="HSplitContainer/VBoxContainer"]
+layout_mode = 2
+text = "Exit"
