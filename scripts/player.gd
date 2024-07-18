@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 
 const SPEED: float = 100.0
-const DASHSPEED: float = 900.0
+const DASHSPEED: float = 200.0
 var is_dashing: bool = false
 
 @onready var timer: Timer = $DashTimer
@@ -17,6 +17,8 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("Dash") && !is_dashing:
 		is_dashing = true
 		timer.start()
+	
+	if is_dashing:
 		speed = DASHSPEED
 
 	velocity = direction * speed
