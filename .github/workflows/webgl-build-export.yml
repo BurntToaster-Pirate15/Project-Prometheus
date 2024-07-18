@@ -1,6 +1,7 @@
 name: webgl-build-export
 
 on:
+  push: {}
   pull_request: {}
 
 jobs:
