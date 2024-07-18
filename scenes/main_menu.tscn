@@ -48,4 +48,5 @@ layout_mode = 2
 text = "Exit"
 
 [connection signal="pressed" from="HSplitContainer/VBoxContainer/ButtonPlayNew" to="." method="_on_button_play_new_pressed"]
+[connection signal="pressed" from="HSplitContainer/VBoxContainer/ButtonCredits" to="." method="_on_button_credits_pressed"]
 [connection signal="pressed" from="HSplitContainer/VBoxContainer/ButtonExit" to="." method="_on_button_exit_pressed"]

@@ -1,0 +1,55 @@
+[gd_scene load_steps=3 format=3 uid="uid://cpusw3vu0gaff"]
+
+[ext_resource type="Script" path="res://scripts/credits.gd" id="1_i8sr0"]
+[ext_resource type="Texture2D" uid="uid://djk30lspbnl40" path="res://assets/pTitle.png" id="2_juwsf"]
+
+[node name="Credits" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_i8sr0")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 2
+offset_left = -4.0
+offset_top = 8.0
+offset_right = 1278.0
+offset_bottom = 715.0
+color = Color(0.154876, 0.154876, 0.154876, 1)
+
+[node name="PTitle" type="Sprite2D" parent="."]
+position = Vector2(640, 100)
+texture = ExtResource("2_juwsf")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.497
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 7.0
+offset_top = -118.84
+offset_right = -10.0
+offset_bottom = -7.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 38
+bbcode_enabled = true
+text = "
+[center]Yeagerix[/center]
+[center]Core[/center]
+[center]Nimoos[/center]
+[center]Stealthninja[/center]"
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 19.0
+offset_top = 21.0
+offset_right = 136.0
+offset_bottom = 52.0
+text = "back"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
