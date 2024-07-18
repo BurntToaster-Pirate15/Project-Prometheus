@@ -1,5 +1,6 @@
 # Introduction
 ## Game Summary
+Prometheus is a [description] [genre] game about [basic lore].
 
 ## Inspirations
 
@@ -9,17 +10,22 @@
 This runs on Windows, Linux, and in Web.
 
 ## Development Software
-This game uses Godot Engine.
+Programming: Godot Engine
+Art: 
+Music: 
 
 ## Genre
+Singleplayer, [genre2], [genre3]
 
 ## Target Audience
 
-# Concept
 
+# Concept
 ## Gameplay Overview
 
 ## Theme Interpretations
+Shadow: 
+Alchemy: 
 
 ## Primary Mechanics
 
@@ -44,3 +50,4 @@ This game uses Godot Engine.
 ## Controls
 
 # Development Timeline
+See [Task Board](https://github.com/orgs/BurntToaster-Pirate15/projects/1)
