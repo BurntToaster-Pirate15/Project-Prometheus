@@ -16,12 +16,12 @@ jobs:
         with:
           name: example
           preset: Web
-          debugMode: "true"
       - name: Upload Artifact
         uses: actions/upload-artifact@v4.3.4
         with:
           name: Client-Web
           path: ${{ github.workspace }}/${{ steps.build.outputs.build }}
+
   webgl-export-to-pages:
     runs-on: ubuntu-latest
     needs: webgl-build
