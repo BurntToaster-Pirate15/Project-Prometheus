@@ -15,13 +15,15 @@ Art:
 Music: 
 
 ## Genre
-Singleplayer, [genre2], [genre3]
+Singleplayer Metroidvania
+with Action and Puzzle elements
 
 ## Target Audience
 
 
 # Concept
 ## Gameplay Overview
+Run around the overworld, encounter roadblocks, explore, find solutions, destroy roadblock
 
 ## Theme Interpretations
 Shadow: 
