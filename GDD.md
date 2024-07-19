@@ -59,7 +59,7 @@ Shoot potions to interact with the world.
 ### Environment:
 * Tree: impassable terrain. Can spawn squirrels.
 * Water: impassable terrain for non-flying characters. can be frozen
-* Ice: characters who walk on it will slide until collision.
+* Ice: characters who walk on it will slide until collision. can be melt
 
 # Art
 
