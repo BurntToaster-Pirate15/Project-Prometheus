@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://bnsyw1tg5mk20"]
+
+[ext_resource type="Script" path="res://scripts/tile_map.gd" id="1_ewsi3"]
+
+[node name="TileMap" type="TileMap"]
+z_index = -1
+format = 2
+layer_0/name = "walkable"
+layer_1/name = "obstacle"
+layer_1/tile_data = PackedInt32Array()
+script = ExtResource("1_ewsi3")

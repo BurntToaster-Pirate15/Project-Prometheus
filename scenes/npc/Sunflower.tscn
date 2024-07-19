@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://5hvu3vnu25r"]
+
+[ext_resource type="Script" path="res://scenes/npc/Sunflower.gd" id="1_foxca"]
+
+[node name="Sunflower" type="CharacterBody2D"]
+script = ExtResource("1_foxca")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -11.0
+offset_top = -9.0
+offset_right = 11.0
+offset_bottom = 14.0
+text = "🌻"

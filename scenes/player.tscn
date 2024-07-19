@@ -4,18 +4,19 @@
 [ext_resource type="Texture2D" uid="uid://ni55bqdno2no" path="res://icon.svg" id="1_dijg3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_71oxu"]
-size = Vector2(32, 64)
+size = Vector2(32, 32)
 
 [node name="Player" type="CharacterBody2D"]
+z_index = 1
+collision_layer = 3
 script = ExtResource("1_ashhq")
-movement_type = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -0.5)
 shape = SubResource("RectangleShape2D_71oxu")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.25, 0.5)
+scale = Vector2(0.25, 0.25)
 texture = ExtResource("1_dijg3")
 
 [node name="DebugLabel_HP" type="Label" parent="."]
@@ -23,3 +24,5 @@ offset_left = -21.0
 offset_top = -109.0
 offset_right = 19.0
 offset_bottom = -86.0
+
+[node name="Camera2D" type="Camera2D" parent="."]

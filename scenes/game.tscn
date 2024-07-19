@@ -5,5 +5,3 @@
 [node name="Game" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_03mm7")]
-
-[node name="Camera2D" type="Camera2D" parent="."]
