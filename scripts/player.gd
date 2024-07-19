@@ -21,6 +21,12 @@ var move_direction: Vector2 = Vector2.ZERO
 func switch_to_grid() -> void:
 	position = position.snapped(Vector2.ONE * TILE_SIZE)
 	position -= Vector2.ONE * (TILE_SIZE * 0.5)
+	movement_type = MOVEMENT_TYPE.GRID_BASED
+
+func switch_to_pixel() -> void:
+	movement_type = MOVEMENT_TYPE.PIXEL_BASED
+
+
 
 func move_grid(direction: Vector2):
 	
