@@ -4,6 +4,8 @@ Prometheus is a top-down 2D metroidvania game about an alchemist attempting to r
 
 ## Inspirations
 * Turnip Boy Commits Tax Evasion (and other Zelda-like games)
+* Transister
+* Dungeon Drafter
 
 ## Player Experience
 
@@ -18,8 +20,7 @@ Art:
 Music: 
 
 ## Genre
-Singleplayer Metroidvania
-with Action and Puzzle elements
+Singleplayer Metroidvania Turn-based Tactics
 
 ## Target Audience
 
