@@ -43,6 +43,7 @@ Alchemy: Player is an ALCHEMIST, who collects reagents and brews new potions tha
 * Player is armed with potion gun, with a bunch of different options depending on what they unlocked so far
 * Each shadow has a small moveset, and they tell you in advance what they will do (i.e. Into the Breach)
 * Players must get to 3 out of 5 SUNflowers to extract the latent energy of the SUN and purify the room. This restores color to the room and you can now safely explore.
+* (There should be some sort of turn timer. Refer to Issue 16 for discussion.)
 
 ### Potion Launcher
 Shoot potions to interact with the world.
