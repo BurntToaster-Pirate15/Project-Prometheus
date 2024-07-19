@@ -87,15 +87,11 @@ func turn_start_player():
 				var direction: Vector2 = (path - player.position).normalized()
 				player.move_grid(direction)
 				await get_tree().create_timer(0.35).timeout
-			PlayerProperties.actions -= 1
-		print(PlayerProperties.actions)
 
 func _physics_process(_delta):
 	if TURNORDER == TURN.PLAYER:
 		if PlayerProperties.actions != 0:
 			turn_start_player()
-		else:
-			end_turn()
 	else:
 		turn_start_npc()
 	
