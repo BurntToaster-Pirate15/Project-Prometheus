@@ -34,9 +34,12 @@ The ALCHEMIST must purify the room without hurting the SHADOW CREATURES, by gett
 Upon reaching enough SUNflowers, the ALCHEMIST's SUNSPARK activates, purifying the room and every SHADOW creatures within it.
 
 ## Theme Interpretations
-Shadow: SHADOW has descended upon the world. Player attempts to restore the sun to banish the SHADOW.
-
-Alchemy: Player is an ALCHEMIST, who collects reagents and brews new potions that interact with the environment to address challenges. 
+ALCHEMY brought prosperity to humankind, but at the cost of gradually corrupting our surroundings.
+First, it was the AIR. Air was filled with alchemical fumes, and soon, people couldn't breathe the air without protection, also made through ALCHEMY.
+Next, it was the WATER. Not even the cleansing nature of WATER could wash away all the corruptive fumes. ALCHEMISTS made distilleries to try to purify the WATER.
+Then, it was the EARTH. The WATER carried its corruption into the EARTH, and soon the soil grew sour. ALCHEMISTS still tried to fix the EARTH with more ALCHEMY.
+And finally, it was the FIRE. The SUN itself was swallowed by the SHADOWS and shattered. The SUNSPARKS scattered around the world, carrying what little strength remains of the SUN.
+It wasn't just you who made this happen, but you were one of the ALCHEMISTS. With a shard of SUNSPARK in protected by ALCHEMY, you venture out to collect the SUNSPARKS and restore the SUN...
 
 ## Primary Mechanics
 * Turn cycle: Player makes 1 action, all the NPCs make 1 action each
