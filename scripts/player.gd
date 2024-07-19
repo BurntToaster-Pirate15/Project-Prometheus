@@ -1,18 +1,27 @@
 extends CharacterBody2D
 
+const TILE_SIZE = 32
+enum MOVEMENT_TYPE {PIXEL_BASED, GRID_BASED}
+
 @export_category("movement settings")
 @export var SPEED: float = 100.0
 @export var DASH_SPEED: float = 200.0
 @export var DASHING_TIME: float = 0.5
+@export var movement_type: MOVEMENT_TYPE = MOVEMENT_TYPE.PIXEL_BASED
 
 var is_dashing: bool = false
+var is_moving: bool = false
+
 var dash_direction: Vector2
 var move_direction: Vector2 = Vector2.ZERO
 @onready var timer: Timer = $DashTimer
 
+
+
+
 func switch_to_grid() -> void:
 	position = position.snapped(Vector2.ONE * TILE_SIZE)
-	position -= Vector2.ONE * (TILE_SIZE / 2)
+	position -= Vector2.ONE * (TILE_SIZE * 0.5)
 
 func move_grid(direction: Vector2):
 	
@@ -59,7 +68,7 @@ func move_pixel(direction: Vector2):
 	move_and_slide()
 
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	# faster way to fetch direction
 	var direction: Vector2 = Input.get_vector("left", "right", "up", "down")
 	
