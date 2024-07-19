@@ -1,11 +1,11 @@
 # Introduction
 ## Game Summary
-Prometheus is a top-down 2D metroidvania game about an alchemist attempting to restore the sun.
+Prometheus is a top-down metroidvania turn-based tactics game about an alchemist attempting to restore the sun.
 
 ## Inspirations
 * Turnip Boy Commits Tax Evasion (and other Zelda-like games)
-* Transister
-* Dungeon Drafter
+* Transister ("go to a new room, fight, explore" loop)
+* Hoplite (mobile game, how it blends combat with puzzle)
 
 ## Player Experience
 
