@@ -6,6 +6,7 @@ Prometheus is a top-down metroidvania turn-based tactics game about an alchemist
 * Turnip Boy Commits Tax Evasion (and other Zelda-like games)
 * Transister ("go to a new room, fight, explore" loop)
 * Hoplite (mobile game, how it blends combat with puzzle)
+* Into the Breach (seeing enemy intention, environmental interactions as part of core combat mechanic)
 
 ## Player Experience
 
