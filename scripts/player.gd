@@ -6,8 +6,7 @@ enum MOVEMENT_TYPE {PIXEL_BASED, GRID_BASED}
 @export var SPEED: float = 100.0
 @export var SPRINT_SPEED: float = 200.0
 @export var movement_type: MOVEMENT_TYPE = MOVEMENT_TYPE.PIXEL_BASED
-@export var max_hp: int = 3
-@export var hp: int = 3
+
 
 var is_sprinting: bool = true
 var is_moving: bool = false
@@ -19,8 +18,8 @@ var move_direction: Vector2 = Vector2.ZERO
 
 
 func switch_to_grid() -> void:
-	position = position.snapped(Vector2.ONE * Autoload.TILESIZE)
-	position -= Vector2.ONE * (Autoload.TILESIZE * 0.5)
+	position = position.snapped(Vector2.ONE * MapProperties.TILESIZE)
+	position -= Vector2.ONE * (MapProperties.TILESIZE * 0.5)
 	movement_type = MOVEMENT_TYPE.GRID_BASED
 
 func switch_to_pixel() -> void:
@@ -47,7 +46,7 @@ func move_grid(direction: Vector2):
 	
 		is_moving = true
 		move_direction = movement
-		var _position: Vector2 = position + (move_direction * Autoload.TILESIZE)
+		var _position: Vector2 = position + (move_direction * MapProperties.TILESIZE)
 		
 		
 		var tween: Tween = create_tween()
@@ -69,11 +68,10 @@ func move_pixel(direction: Vector2):
 	move_and_slide()
 	
 func take_damage(damage_amount:int=1) -> void:
-	if damage_amount>hp:
-		hp=0
+	PlayerProperties.health -= damage_amount
+	
+	if PlayerProperties.health <= 0:
 		die()
-	else:
-		hp = hp-damage_amount
 
 func die():
 	print("You died")
@@ -84,9 +82,7 @@ func _physics_process(_delta):
 	
 	if movement_type == MOVEMENT_TYPE.PIXEL_BASED:
 		move_pixel(direction)
-	else:
-		move_grid(direction)
 
 func _process(_delta):
-	$DebugLabel_HP.text="HP: {hp}/{max_hp}".format({"hp":hp,"max_hp":max_hp})
-	pass
+	$DebugLabel_HP.text="HP: {hp}/{max_hp}".format({"hp": PlayerProperties.health,"max_hp":PlayerProperties.max_health})
+
