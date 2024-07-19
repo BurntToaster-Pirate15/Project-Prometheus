@@ -21,7 +21,7 @@ Art:
 Music: 
 
 ## Genre
-Singleplayer Metroidvania Turn-based Tactics
+Singleplayer Metroidvania Turn-based Tactics Adventure
 
 ## Target Audience
 
