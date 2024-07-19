@@ -13,7 +13,6 @@ var is_moving: bool = false
 
 var dash_direction: Vector2
 var move_direction: Vector2 = Vector2.ZERO
-@onready var timer: Timer = $DashTimer
 
 
 
