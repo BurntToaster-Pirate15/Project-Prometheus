@@ -5,11 +5,10 @@ enum MOVEMENT_TYPE {PIXEL_BASED, GRID_BASED}
 
 @export_category("movement settings")
 @export var SPEED: float = 100.0
-@export var DASH_SPEED: float = 200.0
-@export var DASHING_TIME: float = 0.5
+@export var SPRINT_SPEED: float = 200.0
 @export var movement_type: MOVEMENT_TYPE = MOVEMENT_TYPE.PIXEL_BASED
 
-var is_dashing: bool = false
+var is_sprinting: bool = true
 var is_moving: bool = false
 
 var dash_direction: Vector2
@@ -53,15 +52,11 @@ func move_grid(direction: Vector2):
 func move_pixel(direction: Vector2):
 	var speed := SPEED
 
-	if Input.is_action_just_pressed("Dash") && !is_dashing:
-		is_dashing = true
-		dash_direction = direction
-		timer.start(DASHING_TIME)
+	if Input.is_action_pressed("Dash"):
+		is_sprinting = !is_sprinting
+	if is_sprinting:
+		speed = SPRINT_SPEED
 	
-	if is_dashing:
-		speed = DASH_SPEED
-		direction = dash_direction
-
 	velocity = direction * speed
 
 	# not multiplying by delta because move and slide does it for us
@@ -77,5 +72,3 @@ func _physics_process(_delta):
 	else:
 		move_grid(direction)
 
-func _on_dash_timer_timeout():
-	is_dashing = false
