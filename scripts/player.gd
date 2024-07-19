@@ -7,6 +7,8 @@ enum MOVEMENT_TYPE {PIXEL_BASED, GRID_BASED}
 @export var SPEED: float = 100.0
 @export var SPRINT_SPEED: float = 200.0
 @export var movement_type: MOVEMENT_TYPE = MOVEMENT_TYPE.PIXEL_BASED
+@export var max_hp: int = 3
+@export var hp: int = 3
 
 var is_sprinting: bool = true
 var is_moving: bool = false
@@ -66,7 +68,16 @@ func move_pixel(direction: Vector2):
 
 	# not multiplying by delta because move and slide does it for us
 	move_and_slide()
+	
+func take_damage(damage_amount:int=1) -> void:
+	if damage_amount>hp:
+		hp=0
+		die()
+	else:
+		hp = hp-damage_amount
 
+func die():
+	print("You died")
 
 func _physics_process(_delta):
 	# faster way to fetch direction
@@ -77,3 +88,6 @@ func _physics_process(_delta):
 	else:
 		move_grid(direction)
 
+func _process(_delta):
+	$DebugLabel_HP.text="HP: {hp}/{max_hp}".format({"hp":hp,"max_hp":max_hp})
+	pass

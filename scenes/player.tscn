@@ -17,3 +17,9 @@ shape = SubResource("RectangleShape2D_71oxu")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.5, 1)
 texture = ExtResource("1_dijg3")
+
+[node name="DebugLabel_HP" type="Label" parent="."]
+offset_left = -21.0
+offset_top = -109.0
+offset_right = 19.0
+offset_bottom = -86.0
