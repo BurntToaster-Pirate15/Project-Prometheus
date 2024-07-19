@@ -15,7 +15,9 @@ run/main_scene="res://scenes/main_menu.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
 
+Autoload="*res://autoload.gd"
 
 [display]
 

@@ -1,6 +1,5 @@
 extends CharacterBody2D
 
-const TILE_SIZE = 32
 enum MOVEMENT_TYPE {PIXEL_BASED, GRID_BASED}
 
 @export_category("movement settings")
@@ -20,8 +19,8 @@ var move_direction: Vector2 = Vector2.ZERO
 
 
 func switch_to_grid() -> void:
-	position = position.snapped(Vector2.ONE * TILE_SIZE)
-	position -= Vector2.ONE * (TILE_SIZE * 0.5)
+	position = position.snapped(Vector2.ONE * Autoload.TILESIZE)
+	position -= Vector2.ONE * (Autoload.TILESIZE * 0.5)
 	movement_type = MOVEMENT_TYPE.GRID_BASED
 
 func switch_to_pixel() -> void:
@@ -48,7 +47,7 @@ func move_grid(direction: Vector2):
 	
 		is_moving = true
 		move_direction = movement
-		var _position: Vector2 = position + (move_direction * TILE_SIZE)
+		var _position: Vector2 = position + (move_direction * Autoload.TILESIZE)
 		
 		
 		var tween: Tween = create_tween()
