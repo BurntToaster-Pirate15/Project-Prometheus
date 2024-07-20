@@ -10,6 +10,7 @@ var areas: Array
 var in_combat: bool = false
 
 
+
 func _on_combat_area_entered(body: Node2D, area: Area2D):
 	body.switch_to_grid()
 	in_combat = true
@@ -23,8 +24,7 @@ func _ready():
 	for child in get_children():
 		child.connect("body_entered", _on_combat_area_entered.bind(child))
 		areas.append(child)
-	
-	
+
 
 
 func _draw():
