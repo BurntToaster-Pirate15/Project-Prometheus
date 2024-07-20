@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://cj6vwgkhlrdja"]
 
-[ext_resource type="PackedScene" uid="uid://dk17tf1e8orsw" path="res://scenes/CombatManager.tscn" id="1_3s6gl"]
+[ext_resource type="PackedScene" path="res://scenes/CombatManager.tscn" id="1_3s6gl"]
 [ext_resource type="Texture2D" uid="uid://rmqmsdskt57j" path="res://assets/tilesetV1.png" id="1_bxnbk"]
 [ext_resource type="PackedScene" uid="uid://crn4nqhr31vnp" path="res://scenes/player.tscn" id="2_yiej6"]
 [ext_resource type="PackedScene" uid="uid://bnsyw1tg5mk20" path="res://scenes/tile_map.tscn" id="3_yw7sf"]
@@ -424,7 +424,7 @@ spawn_point = Vector2(350, -141)
 
 [node name="MonsterTemplate2" parent="CombatManager/Area2D/EnemyManager" instance=ExtResource("5_gw6tc")]
 position = Vector2(528, -180)
-spawn_point = Vector2(432, -141)
+spawn_point = Vector2(350, -141)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CombatManager/Area2D"]
 position = Vector2(-36, -235)

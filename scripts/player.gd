@@ -27,7 +27,9 @@ signal turn_finished
 func _ready():
 	turn_finished.connect(
 		func():
-			is_my_turn = false
+			print("turn finished bucko");
+			is_my_turn = false;
+			$HUD/TurnStatus.text = "Enemy Turn"
 	)
 
 var grid: TileMap
@@ -135,6 +137,7 @@ func _physics_process(_delta):
 			#$Control/Button3.visible = true
 			await moved
 			turn_finished.emit()
+			return
 		
 		if combat_mode == COMBAT_MODE.ATTACK:
 			if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
@@ -145,9 +148,9 @@ func _physics_process(_delta):
 					
 
 				grid.set_cell(0, mouse_pos, 1, Vector2(0, 4))
-				grid.compute_grid()
+				grid.grid.set_point_solid(grid.local_to_map(get_global_mouse_position()))
 				turn_finished.emit()
-			
+				return
 		
 
 
@@ -160,6 +163,7 @@ func _process(_delta):
 
 func start_turn(_grid: TileMap, _combatants: Array[CharacterBody2D]):
 	grid = _grid
+	$HUD/TurnStatus.text = "Player Turn"
 	HUD.visible = true
 	action_done = false
 	is_my_turn = true

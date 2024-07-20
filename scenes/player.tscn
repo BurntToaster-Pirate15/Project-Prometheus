@@ -92,6 +92,14 @@ text = "Current"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="TurnStatus" type="Label" parent="HUD"]
+layout_mode = 0
+offset_left = 1029.0
+offset_top = 17.0
+offset_right = 1227.0
+offset_bottom = 117.0
+text = "Player Turn"
+
 [connection signal="toggled" from="HUD/Button" to="." method="_on_button_toggled"]
 [connection signal="toggled" from="HUD/Button2" to="." method="_on_button_2_toggled"]
 [connection signal="pressed" from="HUD/Button3" to="." method="_on_button_3_pressed"]
