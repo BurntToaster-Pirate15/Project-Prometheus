@@ -28,8 +28,7 @@ func get_grid_path(from: Vector2, to: Vector2) -> Array:
 	if grid.is_in_boundsv(local_to_map(to)):
 		var paths: Array[Vector2i] = grid.get_id_path(local_to_map(from), local_to_map(to))
 		paths.pop_front()
-		var ret_arr: Array = paths.map(func(x: Vector2i): return map_to_local(x))
-		return ret_arr
+		return paths
 	else:
 		return []
 
