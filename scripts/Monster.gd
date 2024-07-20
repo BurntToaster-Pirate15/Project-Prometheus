@@ -44,7 +44,7 @@ func start_turn(grid: TileMap, combatants: Array[CharacterBody2D]):
 	
 	for tile in path:
 		if actions > 0:
-			move_grid((path.pop_front() - position).normalized())
+			move_grid((grid.map_to_local(path.pop_front()) - position).normalized())
 			actions -= 1
 			await moved
 			break
