@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 enum MOVEMENT_TYPE {PIXEL_BASED, GRID_BASED}
+enum COMBAT_MODE {ATTACK, MOVE}
 
 @export_category("movement settings")
 @export var SPEED: float = 100.0
@@ -11,14 +12,23 @@ enum MOVEMENT_TYPE {PIXEL_BASED, GRID_BASED}
 var is_sprinting: bool = true
 var is_moving: bool = false
 var is_my_turn: bool = false
+var action_done: bool = false
 
+var combat_mode: COMBAT_MODE
 
 var dash_direction: Vector2
 var move_direction: Vector2 = Vector2.ZERO
 
+@onready var HUD: Control = $"HUD"
+
 signal moved
 signal turn_finished
 
+func _ready():
+	turn_finished.connect(
+		func():
+			is_my_turn = false
+	)
 
 var grid: TileMap
 
@@ -47,13 +57,18 @@ func move_grid(direction: Vector2):
 			movement = Vector2.RIGHT
 		elif direction.x < 0:
 			movement = Vector2.LEFT
-	
-	
+
+		action_done = true		
 		is_moving = true
 		move_direction = movement
 		var _position: Vector2 = position + (move_direction * MapProperties.TILESIZE)
 		
+		if (len(grid.get_grid_path(position, _position)) == 0):
+			is_moving = false
+			return
 		
+
+
 		var tween: Tween = create_tween()
 		tween.tween_property(self, "position", _position, 0.35)
 		tween.set_trans(Tween.TRANS_LINEAR)
@@ -79,29 +94,29 @@ func take_damage(damage_amount:int=1) -> void:
 		die()
 
 func die():
-	print("You died")
+	get_tree().reload_current_scene()
 
 
 func _draw():
-	if is_my_turn:
+	if combat_mode == COMBAT_MODE.ATTACK && movement_type == MOVEMENT_TYPE.GRID_BASED:
 		var mouse_pos := get_global_mouse_position()
 		var color: Color = Color(0, 0, 0)
 	
-		var arr: Array = grid.get_grid_path(position, mouse_pos)
 		mouse_pos = grid.local_to_map(mouse_pos)
 		mouse_pos = grid.map_to_local(mouse_pos)
+		mouse_pos = to_local(mouse_pos)
+		
+		var radius: int = 500
+		
+		if mouse_pos.length() > radius:
+			color = Color(255, 0, 0)
+
+		
+		
+		draw_rect(Rect2(mouse_pos.x-16, mouse_pos.y-16, 32, 32), color, false)
+		draw_line(Vector2(0, 0), mouse_pos, color, 2)
+		
 	
-	
-		if len(arr) >= PlayerProperties.max_moves or len(arr) == 0:
-			color = Color(1.0, 0, 0)
-			draw_line(position, mouse_pos, color, 1)
-		else:
-			arr.insert(0, position)
-			for i in range(len(arr)):
-				if len(arr) > i+1:
-					draw_line(arr[i], arr[i+1], color, 1)
-	
-		draw_rect(Rect2(mouse_pos.x - 16, mouse_pos.y-16, 32, 32), color, false)
 
 
 func _physics_process(_delta):
@@ -113,32 +128,53 @@ func _physics_process(_delta):
 	if movement_type == MOVEMENT_TYPE.GRID_BASED:
 		if not is_my_turn:
 			return
-		# check for mouse input for movement
-		if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-			var mouse_pos = get_global_mouse_position()
-			var arr: Array = grid.get_grid_path(position, mouse_pos)
-			# ^ A * path finding algortihm
-			
-			# if it takes more moves than allowed return
-			if len(arr) > PlayerProperties.max_moves or len(arr) < 0:
-				return
-			
-			# move to position
-			for path in arr:
-				if PlayerProperties.actions > 0:
-					direction = (path - position).normalized()
-					move_grid(direction)
-					await moved
-			
+		
+		
+		if combat_mode == COMBAT_MODE.MOVE:
+			move_grid(direction)
+			#$Control/Button3.visible = true
+			await moved
 			turn_finished.emit()
+		
+		if combat_mode == COMBAT_MODE.ATTACK:
+			if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+				var mouse_pos := grid.local_to_map(
+					grid.to_local(get_global_mouse_position())
+				)
+					
+					
+
+				grid.set_cell(0, mouse_pos, 1, Vector2(0, 4))
+				grid.compute_grid()
+				turn_finished.emit()
+			
+		
+
 
 func _process(_delta):
 	$DebugLabel_HP.text="HP: {hp}/{max_hp}".format(
 		{"hp": PlayerProperties.health,
 		"max_hp":PlayerProperties.max_health,
 		})
-	
+	queue_redraw()
 
-func start_turn(grid: TileMap, _combatants: Array[CharacterBody2D]):
-	self.grid = grid
+func start_turn(_grid: TileMap, _combatants: Array[CharacterBody2D]):
+	grid = _grid
+	HUD.visible = true
+	action_done = false
 	is_my_turn = true
+
+
+func _on_button_2_toggled(toggled_on):
+	if toggled_on:
+		combat_mode = COMBAT_MODE.MOVE
+
+
+func _on_button_toggled(toggled_on):
+	if toggled_on:
+		combat_mode = COMBAT_MODE.ATTACK
+
+
+func _on_button_3_pressed():
+	turn_finished.emit()
+	$Control/Button3.visible = false
