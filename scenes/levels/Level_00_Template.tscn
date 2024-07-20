@@ -7,8 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://c65uy7fi75e0f" path="res://scenes/npc/Monster.tscn" id="5_gw6tc"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_05j8k"]
-a = Vector2(196, 140)
-b = Vector2(196, 171)
+a = Vector2(195, 139)
+b = Vector2(194, 202)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4vth1"]
 texture = ExtResource("1_bxnbk")

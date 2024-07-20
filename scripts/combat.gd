@@ -26,7 +26,11 @@ func _on_combat_area_entered(body: Node2D, area: Area2D):
 	combatants.append(player)
 	children.map(func(child): if child is CharacterBody2D: combatants.append(child))
 	player.position.x += 32
-	in_combat = true
+	# ^ sets player to the correct position for combat
+	# not an issue
+	# equivalent to setting player to be in some area
+	# where they can do combat
+	in_combat = true # enable combat
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

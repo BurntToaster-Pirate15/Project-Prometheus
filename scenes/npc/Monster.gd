@@ -19,6 +19,7 @@ func _ready():
 
 
 func start_turn(grid: TileMap, combatants: Array[CharacterBody2D]):
+	actions = 1
 	# find player and move towards him one space per turn
 	for combatant in combatants:
 		if combatant.name == "Player":

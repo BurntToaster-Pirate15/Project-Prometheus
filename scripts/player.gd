@@ -102,8 +102,7 @@ func _draw():
 					draw_line(arr[i], arr[i+1], color, 1)
 	
 		draw_rect(Rect2(mouse_pos.x - 16, mouse_pos.y-16, 32, 32), color, false)
-	
-	
+
 
 func _physics_process(_delta):
 	# faster way to fetch direction
@@ -112,16 +111,14 @@ func _physics_process(_delta):
 	if movement_type == MOVEMENT_TYPE.PIXEL_BASED:
 		move_pixel(direction)
 	if movement_type == MOVEMENT_TYPE.GRID_BASED:
-		# finish turns if no moves are left
-		if PlayerProperties.actions == 0:
-			turn_finished.emit()
+		if not is_my_turn:
 			return
-		
 		# check for mouse input for movement
 		if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 			var mouse_pos = get_global_mouse_position()
 			var arr: Array = grid.get_grid_path(position, mouse_pos)
-		
+			# ^ A * path finding algortihm
+			
 			# if it takes more moves than allowed return
 			if len(arr) > PlayerProperties.max_moves or len(arr) < 0:
 				return
@@ -133,14 +130,12 @@ func _physics_process(_delta):
 					move_grid(direction)
 					await moved
 			
-			PlayerProperties.actions -= 1
+			turn_finished.emit()
 
 func _process(_delta):
-	$DebugLabel_HP.text="HP: {hp}/{max_hp}\n Actions: {actions}/{max_actions}".format(
+	$DebugLabel_HP.text="HP: {hp}/{max_hp}".format(
 		{"hp": PlayerProperties.health,
 		"max_hp":PlayerProperties.max_health,
-		"actions": PlayerProperties.actions,
-		"max_actions": 5
 		})
 	
 
