@@ -27,7 +27,6 @@ signal turn_finished
 func _ready():
 	turn_finished.connect(
 		func():
-			print("turn finished bucko");
 			is_my_turn = false;
 			$HUD/TurnStatus.text = "Enemy Turn"
 	)
