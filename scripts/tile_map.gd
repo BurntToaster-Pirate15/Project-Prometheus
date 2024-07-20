@@ -23,8 +23,6 @@ func _ready():
 	
 	compute_grid()
 	
-func can_move_to():
-	pass
 	
 func get_grid_path(from: Vector2, to: Vector2) -> Array:
 	if grid.is_in_boundsv(local_to_map(to)):
@@ -35,6 +33,3 @@ func get_grid_path(from: Vector2, to: Vector2) -> Array:
 	else:
 		return []
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
