@@ -422,6 +422,10 @@ collision_mask = 2
 position = Vector2(352, -144)
 spawn_point = Vector2(350, -141)
 
+[node name="MonsterTemplate2" parent="CombatManager/Area2D/EnemyManager" instance=ExtResource("5_gw6tc")]
+position = Vector2(528, -180)
+spawn_point = Vector2(432, -141)
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CombatManager/Area2D"]
 position = Vector2(-36, -235)
 shape = SubResource("SegmentShape2D_05j8k")
