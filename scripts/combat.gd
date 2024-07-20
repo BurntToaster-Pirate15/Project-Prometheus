@@ -34,8 +34,8 @@ func _on_combat_area_entered(body: Node2D, area: Area2D):
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	if in_combat and len(combatants) > 1:
-		for combatant in combatants:
+		for combatant in combatants: # Replace with function body.
 			combatant.start_turn(grid, combatants)
 			await combatant.turn_finished
