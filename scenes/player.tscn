@@ -1,10 +1,17 @@
-[gd_scene load_steps=4 format=3 uid="uid://crn4nqhr31vnp"]
+[gd_scene load_steps=7 format=3 uid="uid://crn4nqhr31vnp"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_ashhq"]
 [ext_resource type="Texture2D" uid="uid://ni55bqdno2no" path="res://icon.svg" id="1_dijg3"]
+[ext_resource type="ButtonGroup" uid="uid://bp6l820dk6wpy" path="res://resources/button groups/combat_buttons.tres" id="3_8re0i"]
+[ext_resource type="Texture2D" uid="uid://rmqmsdskt57j" path="res://assets/tilesetV1.png" id="4_a5ihw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_71oxu"]
 size = Vector2(32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3j6sa"]
+atlas = ExtResource("4_a5ihw")
+region = Rect2(0.0439148, 136.993, 36.2056, 36.0077)
+filter_clip = true
 
 [node name="Player" type="CharacterBody2D"]
 z_index = 1
@@ -26,3 +33,65 @@ offset_right = 19.0
 offset_bottom = -86.0
 
 [node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="HUD" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_left = -640.0
+offset_top = -360.0
+offset_right = 642.0
+offset_bottom = 354.0
+
+[node name="Button" type="Button" parent="HUD"]
+layout_mode = 0
+offset_left = 42.0
+offset_top = 640.0
+offset_right = 300.0
+offset_bottom = 688.0
+toggle_mode = true
+button_group = ExtResource("3_8re0i")
+text = "Attack
+"
+
+[node name="Button2" type="Button" parent="HUD"]
+layout_mode = 0
+offset_left = 320.0
+offset_top = 638.0
+offset_right = 578.0
+offset_bottom = 686.0
+toggle_mode = true
+button_group = ExtResource("3_8re0i")
+text = "Move
+"
+
+[node name="Button3" type="Button" parent="HUD"]
+visible = false
+layout_mode = 0
+offset_left = 1061.0
+offset_top = 650.0
+offset_right = 1267.0
+offset_bottom = 698.0
+text = "Finish turn?"
+
+[node name="TextureRect" type="TextureRect" parent="HUD"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 27.0
+offset_right = 143.0
+offset_bottom = 155.0
+texture = SubResource("AtlasTexture_3j6sa")
+
+[node name="Label" type="Label" parent="HUD"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = -3.0
+offset_right = 76.0
+offset_bottom = 20.0
+text = "Current"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="toggled" from="HUD/Button" to="." method="_on_button_toggled"]
+[connection signal="toggled" from="HUD/Button2" to="." method="_on_button_2_toggled"]
+[connection signal="pressed" from="HUD/Button3" to="." method="_on_button_3_pressed"]
