@@ -3,21 +3,27 @@ extends CharacterBody2D
 enum MOVEMENT_TYPE {PIXEL_BASED, GRID_BASED}
 enum COMBAT_MODE {ATTACK, MOVE}
 
+const blocks: Dictionary = {
+	"wall": Vector2(0, 4)
+}
+
 @export_category("movement settings")
 @export var SPEED: float = 100.0
 @export var SPRINT_SPEED: float = 200.0
 @export var movement_type: MOVEMENT_TYPE = MOVEMENT_TYPE.PIXEL_BASED
 
+var grid: TileMap
 
 var is_sprinting: bool = true
 var is_moving: bool = false
 var is_my_turn: bool = false
-var action_done: bool = false
 
 var combat_mode: COMBAT_MODE
 
 var dash_direction: Vector2
 var move_direction: Vector2 = Vector2.ZERO
+
+var actions: int = 1
 
 @onready var HUD: Control = $"HUD"
 
@@ -31,7 +37,70 @@ func _ready():
 			$HUD/TurnStatus.text = "Enemy Turn"
 	)
 
-var grid: TileMap
+func _process(_delta):
+	$DebugLabel_HP.text="HP: {hp}/{max_hp}\n ACTIONS: {actions}/{max_actions}".format(
+		{"hp": PlayerProperties.health,
+		"max_hp":PlayerProperties.max_health,
+		"actions": actions,
+		"max_actions": 1
+		})
+	queue_redraw()
+
+func _physics_process(_delta):
+	# faster way to fetch direction
+	var direction: Vector2 = Input.get_vector("left", "right", "up", "down")
+	
+	if movement_type == MOVEMENT_TYPE.PIXEL_BASED:
+		move_pixel(direction)
+	if movement_type == MOVEMENT_TYPE.GRID_BASED:
+		if not is_my_turn:
+			return
+		
+		if actions == 0:
+			return
+		
+		if combat_mode == COMBAT_MODE.MOVE:
+			move_grid(direction)
+			await moved
+			turn_finished.emit()
+			return
+		
+
+
+func _draw():
+	if combat_mode == COMBAT_MODE.ATTACK && movement_type == MOVEMENT_TYPE.GRID_BASED:
+		var mouse_pos := get_global_mouse_position()
+		var color: Color = Color(0, 0, 0)
+	
+		mouse_pos = grid.local_to_map(mouse_pos)
+		mouse_pos = grid.map_to_local(mouse_pos)
+		mouse_pos = to_local(mouse_pos)
+		
+		var radius: int = 500
+		
+		if mouse_pos.length() > radius:
+			color = Color(255, 0, 0)
+
+		
+		
+		draw_rect(Rect2(mouse_pos.x-16, mouse_pos.y-16, 32, 32), color, false)
+		draw_line(Vector2(0, 0), mouse_pos, color, 2)
+
+# capture mouse input and place block
+func _input(event: InputEvent):
+	if event is InputEventMouseButton:
+		# BUG: check if mouse event is conusmed by button!
+		if event.is_pressed() and event.button_index == MOUSE_BUTTON_LEFT:
+			if is_my_turn and actions != 0 and combat_mode == COMBAT_MODE.ATTACK:
+				var mouse_pos := get_global_mouse_position()
+				var location_to_place := grid.local_to_map(grid.to_local(mouse_pos))
+
+				place_block(location_to_place, blocks["wall"])
+				actions -= 1
+				turn_finished.emit()
+
+
+			
 
 func switch_to_grid() -> void:
 	position = position.snapped(Vector2.ONE * MapProperties.TILESIZE)
@@ -41,7 +110,13 @@ func switch_to_grid() -> void:
 func switch_to_pixel() -> void:
 	movement_type = MOVEMENT_TYPE.PIXEL_BASED
 
+# map_coordinate: where in the tile map should the block be placed
+# tile_coordinate: what tile should be placed (coordinate in tile set)
+func place_block(map_coordinate: Vector2, tile_coordinate: Vector2) -> void:
+	grid.set_cell(0, map_coordinate, 1, tile_coordinate)
+	grid.grid.set_point_solid(map_coordinate)
 
+# handle player inputs
 
 func move_grid(direction: Vector2):
 	
@@ -49,6 +124,7 @@ func move_grid(direction: Vector2):
 	# this branching if statement is ugly
 	# 			- stealthninja
 	if !is_moving && direction.length() > 0:
+
 		var movement: Vector2
 		if direction.y < 0:
 			movement = Vector2.UP
@@ -59,7 +135,7 @@ func move_grid(direction: Vector2):
 		elif direction.x < 0:
 			movement = Vector2.LEFT
 
-		action_done = true
+		actions -=1
 		is_moving = true
 		move_direction = movement
 		var _position: Vector2 = position + (move_direction * MapProperties.TILESIZE)
@@ -71,7 +147,7 @@ func move_grid(direction: Vector2):
 
 
 		var tween: Tween = create_tween()
-		tween.tween_property(self, "position", _position, 0.35)
+		tween.tween_property(self, "position", _position, 0.25)
 		tween.set_trans(Tween.TRANS_LINEAR)
 		tween.tween_callback(func(): move_direction = Vector2.ZERO; is_moving = false; moved.emit())
 
@@ -98,78 +174,15 @@ func die():
 	get_tree().reload_current_scene()
 
 
-func _draw():
-	if combat_mode == COMBAT_MODE.ATTACK && movement_type == MOVEMENT_TYPE.GRID_BASED:
-		var mouse_pos := get_global_mouse_position()
-		var color: Color = Color(0, 0, 0)
-	
-		mouse_pos = grid.local_to_map(mouse_pos)
-		mouse_pos = grid.map_to_local(mouse_pos)
-		mouse_pos = to_local(mouse_pos)
-		
-		var radius: int = 500
-		
-		if mouse_pos.length() > radius:
-			color = Color(255, 0, 0)
-
-		
-		
-		draw_rect(Rect2(mouse_pos.x-16, mouse_pos.y-16, 32, 32), color, false)
-		draw_line(Vector2(0, 0), mouse_pos, color, 2)
-		
-	
-
-
-func _physics_process(_delta):
-	# faster way to fetch direction
-	var direction: Vector2 = Input.get_vector("left", "right", "up", "down")
-	
-	if movement_type == MOVEMENT_TYPE.PIXEL_BASED:
-		move_pixel(direction)
-	if movement_type == MOVEMENT_TYPE.GRID_BASED:
-		if not is_my_turn:
-			return
-		
-		
-		if combat_mode == COMBAT_MODE.MOVE:
-			move_grid(direction)
-			#$Control/Button3.visible = true
-			await moved
-			turn_finished.emit()
-			return
-		
-		if combat_mode == COMBAT_MODE.ATTACK:  # clicking while in attack mode
-			if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-				var mouse_pos := grid.local_to_map(
-					grid.to_local(get_global_mouse_position())
-				)
-				print("mouse_pos:",mouse_pos)
-				var player_pos := grid.local_to_map(
-					grid.to_local(position)
-				)
-				print("mouse_pos:",mouse_pos,", player_position:", player_pos)
-					
-
-				grid.set_cell(0, mouse_pos, 1, Vector2(0, 4))
-				grid.grid.set_point_solid(grid.local_to_map(get_global_mouse_position()))
-				turn_finished.emit()
-				return
-		
-
-
-func _process(_delta):
-	$DebugLabel_HP.text="HP: {hp}/{max_hp}".format(
-		{"hp": PlayerProperties.health,
-		"max_hp":PlayerProperties.max_health,
-		})
-	queue_redraw()
-
 func start_turn(_grid: TileMap, _combatants: Array[CharacterBody2D]):
 	grid = _grid
 	$HUD/TurnStatus.text = "Player Turn"
 	HUD.visible = true
-	action_done = false
 	is_my_turn = true
+	actions = 1
+
+
+# ===============+ GUI +================= #
 
 
 func _on_button_2_toggled(toggled_on):
@@ -185,3 +198,5 @@ func _on_button_toggled(toggled_on):
 func _on_button_3_pressed():
 	turn_finished.emit()
 	$Control/Button3.visible = false
+
+# =============== GUI END ================= #
