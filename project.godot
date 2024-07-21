@@ -20,11 +20,6 @@ config/icon="res://icon.svg"
 PlayerProperties="*res://scripts/properties/player_properties.gd"
 MapProperties="*res://scripts/properties/map_properties.gd"
 
-[display]
-
-window/size/viewport_width=1280
-window/size/viewport_height=720
-
 [input]
 
 up={
