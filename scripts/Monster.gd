@@ -41,6 +41,11 @@ func start_turn(grid: TileMap, combatants: Array[CharacterBody2D]):
 	for occupied_position in occupied_positions:
 		grid.grid.set_point_solid(grid.local_to_map(occupied_position.global_position), false)
 
+	if path.is_empty():
+		return
+	
+	if len(path) > 10:
+		return
 	
 	for tile in path:
 		if actions > 0:
@@ -78,7 +83,7 @@ func move_grid(direction: Vector2):
 			
 		
 		var tween: Tween = create_tween()
-		tween.tween_property(self, "position", _position, 0.35)
+		tween.tween_property(self, "position", _position, 1)
 		tween.set_trans(Tween.TRANS_LINEAR)
 		tween.tween_callback(func(): move_direction = Vector2.ZERO; is_moving = false; moved.emit())
 
