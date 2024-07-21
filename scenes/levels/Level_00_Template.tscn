@@ -431,7 +431,7 @@ position = Vector2(-36, -235)
 shape = SubResource("SegmentShape2D_05j8k")
 
 [node name="Player" parent="." instance=ExtResource("2_yiej6")]
-position = Vector2(17, 16)
+position = Vector2(83, -49)
 
 [node name="TileMap" parent="." instance=ExtResource("3_yw7sf")]
 tile_set = SubResource("TileSet_os0c3")
