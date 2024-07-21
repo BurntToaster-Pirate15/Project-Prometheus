@@ -19,6 +19,7 @@ var is_moving: bool = false
 var is_my_turn: bool = false
 
 var combat_mode: COMBAT_MODE
+var attack_range:= 128
 
 var dash_direction: Vector2
 var move_direction: Vector2 = Vector2.ZERO
@@ -76,13 +77,10 @@ func _draw():
 		mouse_pos = grid.map_to_local(mouse_pos)
 		mouse_pos = to_local(mouse_pos)
 		
-		var radius: int = 500
-		
-		if mouse_pos.length() > radius:
+		if mouse_pos.length() > attack_range:
 			color = Color(255, 0, 0)
 
-		
-		
+
 		draw_rect(Rect2(mouse_pos.x-16, mouse_pos.y-16, 32, 32), color, false)
 		draw_line(Vector2(0, 0), mouse_pos, color, 2)
 
@@ -91,15 +89,19 @@ func _input(event: InputEvent):
 	if event is InputEventMouseButton:
 		# BUG: check if mouse event is conusmed by button!
 		if event.is_pressed() and event.button_index == MOUSE_BUTTON_LEFT:
-			if is_my_turn and actions != 0 and combat_mode == COMBAT_MODE.ATTACK:
+			if is_my_turn and actions > 0 and combat_mode == COMBAT_MODE.ATTACK:
 				var mouse_pos := get_global_mouse_position()
 				var location_to_place := grid.local_to_map(grid.to_local(mouse_pos))
 				
-				# test to do multiple walls:
-				for i in range(-1, 2):
-					place_block(Vector2(location_to_place.x + i, location_to_place.y), blocks["wall"])
-				actions -= 1
-				turn_finished.emit()
+				# position + attack_vector = mouse_pos
+				var attack_vector: Vector2 = mouse_pos-position
+				if (attack_vector.length()<attack_range):
+					for i in range(-1, 2):
+						place_block(Vector2(location_to_place.x + i, location_to_place.y), blocks["wall"])
+					actions -= 1
+					turn_finished.emit()
+				else:
+					print("Attempted to attack outside of attack range")
 
 
 			
