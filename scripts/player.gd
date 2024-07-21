@@ -94,8 +94,10 @@ func _input(event: InputEvent):
 			if is_my_turn and actions != 0 and combat_mode == COMBAT_MODE.ATTACK:
 				var mouse_pos := get_global_mouse_position()
 				var location_to_place := grid.local_to_map(grid.to_local(mouse_pos))
-
-				place_block(location_to_place, blocks["wall"])
+				
+				# test to do multiple walls:
+				for i in range(-1, 2):
+					place_block(Vector2(location_to_place.x + i, location_to_place.y), blocks["wall"])
 				actions -= 1
 				turn_finished.emit()
 
@@ -147,7 +149,7 @@ func move_grid(direction: Vector2):
 
 
 		var tween: Tween = create_tween()
-		tween.tween_property(self, "position", _position, 0.25)
+		tween.tween_property(self, "position", _position, 0.35)
 		tween.set_trans(Tween.TRANS_LINEAR)
 		tween.tween_callback(func(): move_direction = Vector2.ZERO; is_moving = false; moved.emit())
 
