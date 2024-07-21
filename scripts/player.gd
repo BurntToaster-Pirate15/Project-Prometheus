@@ -71,18 +71,18 @@ func _physics_process(_delta):
 func _draw():
 	if combat_mode == COMBAT_MODE.ATTACK && movement_type == MOVEMENT_TYPE.GRID_BASED:
 		var mouse_pos := get_global_mouse_position()
-		var color: Color = Color(0, 0, 0)
+		var line_color: Color = Color.BLACK
 	
 		mouse_pos = grid.local_to_map(mouse_pos)
 		mouse_pos = grid.map_to_local(mouse_pos)
 		mouse_pos = to_local(mouse_pos)
 		
 		if mouse_pos.length() > attack_range:
-			color = Color(255, 0, 0)
+			line_color = Color.RED
 
+		draw_rect(Rect2(mouse_pos.x-16, mouse_pos.y-16, 32, 32), line_color, false)
+		draw_line(Vector2(0, 0), mouse_pos, line_color, 2)
 
-		draw_rect(Rect2(mouse_pos.x-16, mouse_pos.y-16, 32, 32), color, false)
-		draw_line(Vector2(0, 0), mouse_pos, color, 2)
 
 # capture mouse input and place block
 func _input(event: InputEvent):
@@ -95,6 +95,8 @@ func _input(event: InputEvent):
 				
 				# position + attack_vector = mouse_pos
 				var attack_vector: Vector2 = mouse_pos-position
+				
+				# check if attack was within range
 				if (attack_vector.length()<attack_range):
 					for i in range(-1, 2):
 						place_block(Vector2(location_to_place.x + i, location_to_place.y), blocks["wall"])
@@ -103,8 +105,6 @@ func _input(event: InputEvent):
 				else:
 					print("Attempted to attack outside of attack range")
 
-
-			
 
 func switch_to_grid() -> void:
 	position = position.snapped(Vector2.ONE * MapProperties.TILESIZE)
