@@ -59,7 +59,7 @@ func move_grid(direction: Vector2):
 		elif direction.x < 0:
 			movement = Vector2.LEFT
 
-		action_done = true		
+		action_done = true
 		is_moving = true
 		move_direction = movement
 		var _position: Vector2 = position + (move_direction * MapProperties.TILESIZE)
@@ -138,12 +138,16 @@ func _physics_process(_delta):
 			turn_finished.emit()
 			return
 		
-		if combat_mode == COMBAT_MODE.ATTACK:
+		if combat_mode == COMBAT_MODE.ATTACK:  # clicking while in attack mode
 			if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 				var mouse_pos := grid.local_to_map(
 					grid.to_local(get_global_mouse_position())
 				)
-					
+				print("mouse_pos:",mouse_pos)
+				var player_pos := grid.local_to_map(
+					grid.to_local(position)
+				)
+				print("mouse_pos:",mouse_pos,", player_position:", player_pos)
 					
 
 				grid.set_cell(0, mouse_pos, 1, Vector2(0, 4))
