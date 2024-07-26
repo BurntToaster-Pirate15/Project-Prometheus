@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/menu.gd" id="1_fb3nk"]
 [ext_resource type="Texture2D" uid="uid://djk30lspbnl40" path="res://assets/pTitle.png" id="2_5jx7d"]
-[ext_resource type="AudioStream" uid="uid://ccfepih3cnty8" path="res://K-412 MAIN MENU.mp3" id="3_a7xpo"]
+[ext_resource type="AudioStream" uid="uid://ccfepih3cnty8" path="res://sound_and_music/K-412 MAIN MENU.mp3" id="3_a7xpo"]
 
 [node name="MainMenu" type="MarginContainer"]
 anchors_preset = 15
