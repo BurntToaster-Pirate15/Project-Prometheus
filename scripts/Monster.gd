@@ -38,14 +38,19 @@ func start_turn(grid: TileMap, combatants: Array[CharacterBody2D]):
 	
 	var path: Array = grid.get_grid_path(position, player.position)
 	
+	if path.is_empty() or len(path) > 10:
+		# move randomly 
+		# idle behaviour
+		var rand_x: int = randi_range(-1, 1)
+		var rand_y: int = randi_range(-1, 1)
+		var random_direction: Vector2 =  position + Vector2(rand_x * 32, rand_y * 32)
+		path = grid.get_grid_path(position, random_direction)
+	
 	for occupied_position in occupied_positions:
 		grid.grid.set_point_solid(grid.local_to_map(occupied_position.global_position), false)
 
-	if path.is_empty():
-		return
 	
-	if len(path) > 10:
-		return
+		
 	
 	for tile in path:
 		if actions > 0:
