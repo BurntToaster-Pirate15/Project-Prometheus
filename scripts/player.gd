@@ -87,7 +87,7 @@ func _draw():
 # capture mouse input and place block
 func _input(event: InputEvent):
 	if event is InputEventMouseButton:
-		# BUG: check if mouse event is conusmed by button!
+		# BUG: check if mouse event is consumed by button!
 		if event.is_pressed() and event.button_index == MOUSE_BUTTON_LEFT:
 			if is_my_turn and actions > 0 and combat_mode == COMBAT_MODE.ATTACK:
 				var mouse_pos := get_global_mouse_position()
