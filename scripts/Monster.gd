@@ -43,7 +43,7 @@ func start_turn(grid: TileMap, combatants: Array[CharacterBody2D]):
 		# idle behaviour
 		var rand_x: int = randi_range(-1, 1)
 		var rand_y: int = randi_range(-1, 1)
-		var random_direction: Vector2 =  position + Vector2(rand_x * 32, rand_y * 32)
+		var random_direction: Vector2 =  spawn_point + Vector2(rand_x * 32, rand_y * 32)
 		path = grid.get_grid_path(position, random_direction)
 	
 	for occupied_position in occupied_positions:
