@@ -73,6 +73,10 @@ Shoot potions to interact with the world.
 # Audio
 
 ## Music
+* There are 3 songs that play through the game, one for the title screen, one for the boss, and one for general gameplay and ambiance
+* Since the game is a darker adventure an epic and sinister sound was used in the title screen to grab the players attention from the start and get them immersed.
+* Every good boss fight is a mixture of intensity, doubt, and epicness, which is what the song tries to capture. The desperate attemps of the valiant hero fighting against all odds
+* For the gameplay track a mystical and relaxed song was made. The focus should be on the game, so a lighter song that makes the player feel like they are in a different world was the idea.
 
 ## Sound Effects
 
