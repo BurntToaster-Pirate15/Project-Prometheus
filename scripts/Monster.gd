@@ -3,6 +3,9 @@ extends CharacterBody2D
 @export var SPEED = 300.0
 @export var spawn_point: Vector2
 
+@export var path: Array[Vector2]
+var index: int = 0
+
 var is_moving: bool = false
 
 var move_direction: Vector2
@@ -23,6 +26,8 @@ func _ready():
 
 func start_turn(grid: TileMap, combatants: Array[CharacterBody2D]):
 	actions = 1
+	index %= path.size() # make index wrap around
+	
 	# find player and move towards him one space per turn
 	for combatant in combatants:
 		if combatant.name == "Player":
@@ -36,15 +41,15 @@ func start_turn(grid: TileMap, combatants: Array[CharacterBody2D]):
 	for occupied_position in occupied_positions:
 		grid.grid.set_point_solid(grid.local_to_map(occupied_position.global_position))
 	
-	var path: Array = grid.get_grid_path(position, player.position)
-	
-	if path.is_empty() or len(path) > 10:
-		# move randomly 
+	var curr_path: Array = grid.get_grid_path(position, player.position)
+	if curr_path.is_empty() or len(curr_path) > 10:
+		# move with predefined path
 		# idle behaviour
-		var rand_x: int = randi_range(-1, 1)
-		var rand_y: int = randi_range(-1, 1)
-		var random_direction: Vector2 =  spawn_point + Vector2(rand_x * 32, rand_y * 32)
-		path = grid.get_grid_path(position, random_direction)
+		curr_path = grid.get_grid_path(position, path[index])
+		if curr_path.is_empty():
+			print(position)
+			print(path[index])
+			
 	
 	for occupied_position in occupied_positions:
 		grid.grid.set_point_solid(grid.local_to_map(occupied_position.global_position), false)
@@ -54,10 +59,13 @@ func start_turn(grid: TileMap, combatants: Array[CharacterBody2D]):
 	
 	for tile in path:
 		if actions > 0:
-			move_grid((grid.map_to_local(path.pop_front()) - position).normalized())
+			move_grid((grid.map_to_local(curr_path.pop_front()) - position).normalized())
 			actions -= 1
 			await moved
 			break
+	
+	if global_position == path[index]:
+		index += 1 # update index
 	turn_finished.emit()
 
 func move_grid(direction: Vector2):
