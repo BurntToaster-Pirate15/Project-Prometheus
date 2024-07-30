@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://brigtv4owqhm5"]
+[gd_scene load_steps=4 format=3 uid="uid://brigtv4owqhm5"]
 
 [ext_resource type="Script" path="res://scripts/menu.gd" id="1_fb3nk"]
 [ext_resource type="Texture2D" uid="uid://djk30lspbnl40" path="res://assets/pTitle.png" id="2_5jx7d"]
+[ext_resource type="AudioStream" uid="uid://ccfepih3cnty8" path="res://sound_and_music/K-412 MAIN MENU.mp3" id="3_a7xpo"]
 
 [node name="MainMenu" type="MarginContainer"]
 anchors_preset = 15
@@ -46,6 +47,10 @@ text = "Credits"
 [node name="ButtonExit" type="Button" parent="HSplitContainer/VBoxContainer"]
 layout_mode = 2
 text = "Exit"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_a7xpo")
+autoplay = true
 
 [connection signal="pressed" from="HSplitContainer/VBoxContainer/ButtonPlayNew" to="." method="_on_button_play_new_pressed"]
 [connection signal="pressed" from="HSplitContainer/VBoxContainer/ButtonCredits" to="." method="_on_button_credits_pressed"]
