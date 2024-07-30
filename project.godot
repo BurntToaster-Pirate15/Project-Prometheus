@@ -15,10 +15,10 @@ run/main_scene="res://scenes/main_menu.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
-[display]
+[autoload]
 
-window/size/viewport_width=1280
-window/size/viewport_height=720
+PlayerProperties="*res://scripts/properties/player_properties.gd"
+MapProperties="*res://scripts/properties/map_properties.gd"
 
 [input]
 

@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://c65uy7fi75e0f"]
+
+[ext_resource type="Script" path="res://scripts/Monster.gd" id="1_gcp85"]
+[ext_resource type="Texture2D" uid="uid://ni55bqdno2no" path="res://icon.svg" id="2_x5svt"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ocmsw"]
+size = Vector2(32, 32)
+
+[node name="MonsterTemplate" type="CharacterBody2D"]
+script = ExtResource("1_gcp85")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ocmsw")
+
+[node name="Icon" type="Sprite2D" parent="."]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_x5svt")
+
+[node name="DebugLabel_Name" type="Label" parent="."]
+offset_left = -32.0
+offset_top = -38.0
+offset_right = 33.0
+offset_bottom = -15.0
+text = "Monster"
